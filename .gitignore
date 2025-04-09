@@ -1,0 +1,6 @@
+.env
+token.json
+quickbooks.db
+__pycache__/
+*.pyc
+output/
