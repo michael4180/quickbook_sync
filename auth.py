@@ -68,6 +68,19 @@ def callback():
 
     return "✅ Authorization successful! You can close this tab."
 
+@app.route('/token')
+def get_token():
+    auth_key = request.args.get("key")
+    if auth_key != os.getenv("TOKEN_ACCESS_KEY"):
+        return "Unauthorized", 401
+    try:
+        with open('token.json', 'r') as f:
+            token = json.load(f)
+        return token
+    except FileNotFoundError:
+        return "Token file not found", 404
+
+
 # === Start Flask server ===
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.getenv("PORT", 8000)))
